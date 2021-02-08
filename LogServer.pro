@@ -11,29 +11,36 @@ QT += core \
 	gui \
 	network
 
-INCLUDEPATH += .
-INCLUDEPATH += GeneratedFiles/
-MOC_DIR += GeneratedFiles/
-UI_DIR += GeneratedFiles/
-RCC_DIR += GeneratedFiles/
+#Exigido pelo QtBaseGeral/base_geral.pri
+VER_MAJ = 0
+VER_MIN = 9
+VER_PAT = 9
+PROJECT_DIR=$$PWD
+include (../QtBaseGeral/base_geral.pri)
 
-debug {
-	INCLUDEPATH += ./GeneratedFiles
-	MOC_DIR += ./GeneratedFiles
-	OBJECTS_DIR += ./GeneratedFiles/debug
-	UI_DIR += ./GeneratedFiles
-	RCC_DIR += ./GeneratedFiles
-	DESTDIR = ./debug
-}
+#INCLUDEPATH += .
+#INCLUDEPATH += GeneratedFiles/
+#MOC_DIR += GeneratedFiles/
+#UI_DIR += GeneratedFiles/
+#RCC_DIR += GeneratedFiles/
 
-release {
-	INCLUDEPATH += ./GeneratedFiles
-	MOC_DIR += ./GeneratedFiles
-	OBJECTS_DIR += ./GeneratedFiles/release
-	UI_DIR += ./GeneratedFiles
-	RCC_DIR += ./GeneratedFiles
-	DESTDIR = ./
-}
+#debug {
+#	INCLUDEPATH += ./GeneratedFiles
+#	MOC_DIR += ./GeneratedFiles
+#	OBJECTS_DIR += ./GeneratedFiles/debug
+#	UI_DIR += ./GeneratedFiles
+#	RCC_DIR += ./GeneratedFiles
+#	DESTDIR = ./debug
+#}
+
+#release {
+#	INCLUDEPATH += ./GeneratedFiles
+#	MOC_DIR += ./GeneratedFiles
+#	OBJECTS_DIR += ./GeneratedFiles/release
+#	UI_DIR += ./GeneratedFiles
+#	RCC_DIR += ./GeneratedFiles
+#	DESTDIR = ./
+#}
 
 HEADERS += LogServer.h \
 	LogNetSender.h \
@@ -49,22 +56,3 @@ RESOURCES += LogServer.qrc
 
 win32:RC_FILE = icon.rc
 
-win32 {
-	defineReplace(Revisions)	{
-		variable = $$1
-		ALLFILES = $$eval($$variable)
-		NUMBERS = $$system(set LC_ALL="C" && svn info | sed --quiet /Rev:/p | cut -d: -f2 )
-		# message($$NUMBERS)
-		return ($$NUMBERS)
-	}
-}
-
-unix {
-	defineReplace(Revisions)	{
-		NUMBERS = $$system(B=`LC_ALL="C" svn info | grep "Rev:" | cut -d\" \"   -f4` && echo $B)
-		# message($$NUMBERS)
-		return ($$NUMBERS)
-	}
-}
-
-DEFINES += REV_SUBVN_CODE=$$Revisions()
