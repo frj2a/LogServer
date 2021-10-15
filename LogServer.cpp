@@ -2,9 +2,9 @@
 // subversion "$Author: chico $"
 // subversion "$Revision: 109 $"
 
-#define REV_MAJOR_CODE "0"
-#define REV_MINOR_CODE "0"
-#define REV_PATCH_CODE "1"
+//#define REV_MAJOR_CODE "0"
+//#define REV_MINOR_CODE "0"
+//#define REV_PATCH_CODE "1"
 
 #include "LogServer.h"
 #include <QtGui>
